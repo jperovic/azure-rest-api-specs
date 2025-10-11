@@ -18,7 +18,7 @@ options:
     namespace: "Azure.ResourceManager.Terraform"
   "@azure-typespec/http-client-csharp-mgmt":
     emitter-output-dir: "{output-dir}/{service-dir}/{namespace}"
-    package-name: "Azure.ResourceManager.Terraform"
+    namespace: "Azure.ResourceManager.Terraform"
   "@azure-tools/typespec-go":
     service-dir: "sdk/resourcemanager/terraform"
     emitter-output-dir: "{output-dir}/{service-dir}/armterraform"
