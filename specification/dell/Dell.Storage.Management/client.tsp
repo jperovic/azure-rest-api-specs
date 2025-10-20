@@ -74,6 +74,6 @@ using LiftrBase.Storage;
   "csharp"
 );
 @@alternateType(FileSystemResourceUpdate.identity,
-  int32,
+  Azure.ResourceManager.CommonTypes.UserAssignedIdentity,
   "csharp"
 );
