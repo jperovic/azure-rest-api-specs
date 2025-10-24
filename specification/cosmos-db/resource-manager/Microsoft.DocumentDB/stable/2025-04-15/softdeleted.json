@@ -363,6 +363,170 @@
           "nextLinkName": null
         }
       }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DocumentDB/locations/{location}/softDeletedDatabaseAccounts/{accountName}/softDeletedSqlDatabases/{databaseName}/softDeletedSqlContainers/{containerName}": {
+      "put": {
+        "operationId": "SoftDeletedSqlContainers_Update",
+        "x-ms-examples": {
+          "CosmosDBSoftDeletedSqlContainerPurge": {
+            "$ref": "./examples/CosmosDBSoftDeletedSqlContainerPurge.json"
+          },
+          "CosmosDBSoftDeletedSqlContainerRestore": {
+            "$ref": "./examples/CosmosDBSoftDeletedSqlContainerRestore.json"
+          }
+        },
+        "description": "Performs an action on a soft-deleted Azure Cosmos DB SQL container. Supported actions are 'Purge' (permanently delete) and 'Restore' (restore to active state).",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/locationParameter"
+          },
+          {
+            "$ref": "#/parameters/accountNameParameter"
+          },
+          {
+            "$ref": "#/parameters/databaseNameParameter"
+          },
+          {
+            "$ref": "#/parameters/containerNameParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "name": "updateSoftDeletedSqlContainerParameters",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SoftDeletedSqlContainerUpdateParameters"
+            },
+            "description": "The parameters to update the soft-deleted SQL container."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/SoftDeletedSqlContainerGetResult"
+            }
+          },
+          "202": {
+            "description": "The operation will complete asynchronously."
+          },
+          "204": {
+            "description": "The soft-deleted SQL container was not found or the purge operation completed successfully."
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "cosmos-db.json#/definitions/CloudError"
+            }
+          }
+        },
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        }
+      },
+      "get": {
+        "operationId": "SoftDeletedSqlContainers_Get",
+        "x-ms-examples": {
+          "CosmosDBSoftDeletedSqlContainerGet": {
+            "$ref": "./examples/CosmosDBSoftDeletedSqlContainerGet.json"
+          }
+        },
+        "description": "Retrieves the properties of a soft-deleted Azure Cosmos DB SQL container. This call requires 'Microsoft.DocumentDB/locations/softDeletedDatabaseAccounts/softDeletedSqlDatabases/softDeletedSqlContainers/read' permission.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/locationParameter"
+          },
+          {
+            "$ref": "#/parameters/accountNameParameter"
+          },
+          {
+            "$ref": "#/parameters/databaseNameParameter"
+          },
+          {
+            "$ref": "#/parameters/containerNameParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The soft-deleted SQL container properties were retrieved successfully.",
+            "schema": {
+              "$ref": "#/definitions/SoftDeletedSqlContainerGetResult"
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "cosmos-db.json#/definitions/CloudError"
+            }
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DocumentDB/locations/{location}/softDeletedDatabaseAccounts/{accountName}/softDeletedSqlDatabases/{databaseName}/softDeletedSqlContainers": {
+      "get": {
+        "operationId": "SoftDeletedSqlContainers_List",
+        "x-ms-examples": {
+          "CosmosDBSoftDeletedSqlContainerList": {
+            "$ref": "./examples/CosmosDBSoftDeletedSqlContainerList.json"
+          }
+        },
+        "description": "Lists all the soft-deleted Azure Cosmos DB SQL containers under a soft-deleted SQL database. This call requires 'Microsoft.DocumentDB/locations/softDeletedDatabaseAccounts/softDeletedSqlDatabases/softDeletedSqlContainers/read' permission.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/locationParameter"
+          },
+          {
+            "$ref": "#/parameters/accountNameParameter"
+          },
+          {
+            "$ref": "#/parameters/databaseNameParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/SoftDeletedSqlContainerListResult"
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "cosmos-db.json#/definitions/CloudError"
+            }
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": null
+        }
+      }
     }
   },
   "definitions": {
@@ -559,6 +723,97 @@
           "description": "List of soft-deleted SQL databases."
         }
       }
+    },
+    "SoftDeletedSqlContainerGetResult": {
+      "description": "A soft-deleted Azure Cosmos DB SQL container.",
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "cosmos-db.json#/definitions/ARMProxyResource"
+        }
+      ],
+      "properties": {
+        "properties": {
+          "$ref": "#/definitions/SoftDeletedSqlContainerProperties",
+          "description": "Properties of the soft-deleted SQL container.",
+          "x-ms-client-flatten": true
+        }
+      }
+    },
+    "SoftDeletedSqlContainerProperties": {
+      "description": "Properties of a soft-deleted SQL container.",
+      "type": "object",
+      "properties": {
+        "containerName": {
+          "type": "string",
+          "description": "The name of the original SQL container.",
+          "readOnly": true
+        },
+        "creationTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The time when the original SQL container was created.",
+          "readOnly": true
+        },
+        "deletionTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The time when the SQL container was soft-deleted.",
+          "readOnly": true
+        },
+        "purgeTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The time when the SQL container is scheduled to be automatically purged.",
+          "readOnly": true
+        },
+        "canUndelete": {
+          "type": "boolean",
+          "description": "Indicates whether the soft-deleted SQL container can be restored.",
+          "readOnly": true
+        }
+      }
+    },
+    "SoftDeletedSqlContainerUpdateParameters": {
+      "description": "Parameters to update soft-deleted Azure Cosmos DB SQL containers.",
+      "type": "object",
+      "properties": {
+        "properties": {
+          "x-ms-client-flatten": true,
+          "$ref": "#/definitions/SoftDeletedSqlContainerUpdateProperties"
+        }
+      },
+      "required": [
+        "properties"
+      ]
+    },
+    "SoftDeletedSqlContainerUpdateProperties": {
+      "description": "Properties to update soft-deleted Azure Cosmos DB SQL containers.",
+      "type": "object",
+      "properties": {
+        "softDeleteAction": {
+          "description": "Enum to indicate the action to perform on the soft-deleted SQL container.",
+          "type": "string",
+          "$ref": "#/definitions/SoftDeleteAction"
+        }
+      },
+      "required": [
+        "softDeleteAction"
+      ]
+    },
+    "SoftDeletedSqlContainerListResult": {
+      "description": "The list of soft-deleted SQL containers.",
+      "type": "object",
+      "properties": {
+        "value": {
+          "readOnly": true,
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SoftDeletedSqlContainerGetResult"
+          },
+          "description": "List of soft-deleted SQL containers."
+        }
+      }
     }
   },
   "parameters": {
@@ -596,6 +851,16 @@
       "type": "string",
       "x-ms-parameter-location": "method",
       "description": "Cosmos DB SQL database name.",
+      "maxLength": 255,
+      "minLength": 1
+    },
+    "containerNameParameter": {
+      "name": "containerName",
+      "in": "path",
+      "required": true,
+      "type": "string",
+      "x-ms-parameter-location": "method",
+      "description": "Cosmos DB SQL container name.",
       "maxLength": 255,
       "minLength": 1
     }
