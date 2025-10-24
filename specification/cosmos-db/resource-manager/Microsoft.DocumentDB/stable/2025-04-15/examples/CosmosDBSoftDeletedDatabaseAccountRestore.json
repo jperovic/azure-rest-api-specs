@@ -4,11 +4,7 @@
     "resourceGroupName": "rg2",
     "api-version": "2025-04-15",
     "subscriptionId": "subid",
-    "updateSoftDeletedAccountParameters": {
-      "properties": {
-        "softDeleteAction": "Restore"
-      }
-    }
+    "restoreSoftDeletedAccountParameters": {}
   },
   "responses": {
     "200": {

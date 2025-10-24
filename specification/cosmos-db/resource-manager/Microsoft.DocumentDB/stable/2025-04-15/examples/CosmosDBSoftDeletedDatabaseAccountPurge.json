@@ -3,12 +3,7 @@
     "accountName": "softdeleted-cosmosdb-1",
     "resourceGroupName": "rg1",
     "api-version": "2025-04-15",
-    "subscriptionId": "subid",
-    "updateSoftDeletedAccountParameters": {
-      "properties": {
-        "softDeleteAction": "Purge"
-      }
-    }
+    "subscriptionId": "subid"
   },
   "responses": {
     "200": {

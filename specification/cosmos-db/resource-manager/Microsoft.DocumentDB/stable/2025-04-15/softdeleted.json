@@ -36,16 +36,13 @@
   "paths": {
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DocumentDB/softDeletedDatabaseAccounts/{accountName}": {
       "put": {
-        "operationId": "SoftDeletedDatabaseAccounts_Update",
+        "operationId": "SoftDeletedDatabaseAccounts_Restore",
         "x-ms-examples": {
-          "CosmosDBSoftDeletedDatabaseAccountPurge": {
-            "$ref": "./examples/CosmosDBSoftDeletedDatabaseAccountPurge.json"
-          },
           "CosmosDBSoftDeletedDatabaseAccountRestore": {
             "$ref": "./examples/CosmosDBSoftDeletedDatabaseAccountRestore.json"
           }
         },
-        "description": "Performs an action on a soft-deleted Azure Cosmos DB database account. Supported actions are 'Purge' (permanently delete) and 'Restore' (restore to active state).",
+        "description": "Restores a soft-deleted Azure Cosmos DB database account to active state.",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/SubscriptionIdParameter"
@@ -58,29 +55,61 @@
           },
           {
             "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "name": "updateSoftDeletedAccountParameters",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/SoftDeletedDatabaseAccountUpdateParameters"
-            },
-            "description": "The parameters to update the soft-deleted database account."
           }
         ],
         "responses": {
           "200": {
-            "description": "The operation completed successfully.",
+            "description": "The restore operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/SoftDeletedDatabaseAccountGetResult"
             }
           },
           "202": {
-            "description": "The operation will complete asynchronously."
+            "description": "The restore operation will complete asynchronously."
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "cosmos-db.json#/definitions/CloudError"
+            }
+          }
+        },
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        }
+      },
+      "delete": {
+        "operationId": "SoftDeletedDatabaseAccounts_Purge",
+        "x-ms-examples": {
+          "CosmosDBSoftDeletedDatabaseAccountPurge": {
+            "$ref": "./examples/CosmosDBSoftDeletedDatabaseAccountPurge.json"
+          }
+        },
+        "description": "Permanently deletes (purges) a soft-deleted Azure Cosmos DB database account.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/accountNameParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The purge operation completed successfully."
+          },
+          "202": {
+            "description": "The purge operation will complete asynchronously."
           },
           "204": {
-            "description": "The soft-deleted database account was not found or the purge operation completed successfully."
+            "description": "The soft-deleted database account was not found."
           },
           "default": {
             "description": "Error response describing why the operation failed.",
@@ -211,16 +240,13 @@
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DocumentDB/locations/{location}/softDeletedDatabaseAccounts/{accountName}/softDeletedSqlDatabases/{databaseName}": {
       "put": {
-        "operationId": "SoftDeletedSqlDatabases_Update",
+        "operationId": "SoftDeletedSqlDatabases_Restore",
         "x-ms-examples": {
-          "CosmosDBSoftDeletedSqlDatabasePurge": {
-            "$ref": "./examples/CosmosDBSoftDeletedSqlDatabasePurge.json"
-          },
           "CosmosDBSoftDeletedSqlDatabaseRestore": {
             "$ref": "./examples/CosmosDBSoftDeletedSqlDatabaseRestore.json"
           }
         },
-        "description": "Performs an action on a soft-deleted Azure Cosmos DB SQL database. Supported actions are 'Purge' (permanently delete) and 'Restore' (restore to active state).",
+        "description": "Restores a soft-deleted Azure Cosmos DB SQL database to active state.",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/SubscriptionIdParameter"
@@ -239,29 +265,67 @@
           },
           {
             "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "name": "updateSoftDeletedSqlDatabaseParameters",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/SoftDeletedSqlDatabaseUpdateParameters"
-            },
-            "description": "The parameters to update the soft-deleted SQL database."
           }
         ],
         "responses": {
           "200": {
-            "description": "The operation completed successfully.",
+            "description": "The restore operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/SoftDeletedSqlDatabaseGetResult"
             }
           },
           "202": {
-            "description": "The operation will complete asynchronously."
+            "description": "The restore operation will complete asynchronously."
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "cosmos-db.json#/definitions/CloudError"
+            }
+          }
+        },
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        }
+      },
+      "delete": {
+        "operationId": "SoftDeletedSqlDatabases_Purge",
+        "x-ms-examples": {
+          "CosmosDBSoftDeletedSqlDatabasePurge": {
+            "$ref": "./examples/CosmosDBSoftDeletedSqlDatabasePurge.json"
+          }
+        },
+        "description": "Permanently deletes (purges) a soft-deleted Azure Cosmos DB SQL database.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/locationParameter"
+          },
+          {
+            "$ref": "#/parameters/accountNameParameter"
+          },
+          {
+            "$ref": "#/parameters/databaseNameParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The purge operation completed successfully."
+          },
+          "202": {
+            "description": "The purge operation will complete asynchronously."
           },
           "204": {
-            "description": "The soft-deleted SQL database was not found or the purge operation completed successfully."
+            "description": "The soft-deleted SQL database was not found."
           },
           "default": {
             "description": "Error response describing why the operation failed.",
@@ -366,16 +430,13 @@
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DocumentDB/locations/{location}/softDeletedDatabaseAccounts/{accountName}/softDeletedSqlDatabases/{databaseName}/softDeletedSqlContainers/{containerName}": {
       "put": {
-        "operationId": "SoftDeletedSqlContainers_Update",
+        "operationId": "SoftDeletedSqlContainers_Restore",
         "x-ms-examples": {
-          "CosmosDBSoftDeletedSqlContainerPurge": {
-            "$ref": "./examples/CosmosDBSoftDeletedSqlContainerPurge.json"
-          },
           "CosmosDBSoftDeletedSqlContainerRestore": {
             "$ref": "./examples/CosmosDBSoftDeletedSqlContainerRestore.json"
           }
         },
-        "description": "Performs an action on a soft-deleted Azure Cosmos DB SQL container. Supported actions are 'Purge' (permanently delete) and 'Restore' (restore to active state).",
+        "description": "Restores a soft-deleted Azure Cosmos DB SQL container to active state.",
         "parameters": [
           {
             "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/SubscriptionIdParameter"
@@ -397,29 +458,70 @@
           },
           {
             "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "name": "updateSoftDeletedSqlContainerParameters",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/SoftDeletedSqlContainerUpdateParameters"
-            },
-            "description": "The parameters to update the soft-deleted SQL container."
           }
         ],
         "responses": {
           "200": {
-            "description": "The operation completed successfully.",
+            "description": "The restore operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/SoftDeletedSqlContainerGetResult"
             }
           },
           "202": {
-            "description": "The operation will complete asynchronously."
+            "description": "The restore operation will complete asynchronously."
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "cosmos-db.json#/definitions/CloudError"
+            }
+          }
+        },
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        }
+      },
+      "delete": {
+        "operationId": "SoftDeletedSqlContainers_Purge",
+        "x-ms-examples": {
+          "CosmosDBSoftDeletedSqlContainerPurge": {
+            "$ref": "./examples/CosmosDBSoftDeletedSqlContainerPurge.json"
+          }
+        },
+        "description": "Permanently deletes (purges) a soft-deleted Azure Cosmos DB SQL container.",
+        "parameters": [
+          {
+            "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/locationParameter"
+          },
+          {
+            "$ref": "#/parameters/accountNameParameter"
+          },
+          {
+            "$ref": "#/parameters/databaseNameParameter"
+          },
+          {
+            "$ref": "#/parameters/containerNameParameter"
+          },
+          {
+            "$ref": "../../../../../common-types/resource-management/v1/types.json#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The purge operation completed successfully."
+          },
+          "202": {
+            "description": "The purge operation will complete asynchronously."
           },
           "204": {
-            "description": "The soft-deleted SQL container was not found or the purge operation completed successfully."
+            "description": "The soft-deleted SQL container was not found."
           },
           "default": {
             "description": "Error response describing why the operation failed.",
@@ -580,45 +682,7 @@
         }
       }
     },
-    "SoftDeletedDatabaseAccountUpdateParameters": {
-      "description": "Parameters to update soft-deleted Azure Cosmos DB database accounts.",
-      "type": "object",
-      "properties": {
-        "properties": {
-          "x-ms-client-flatten": true,
-          "$ref": "#/definitions/SoftDeletedDatabaseAccountUpdateProperties"
-        }
-      },
-      "required": [
-        "properties"
-      ]
-    },
-    "SoftDeletedDatabaseAccountUpdateProperties": {
-      "description": "Properties to update soft-deleted Azure Cosmos DB database accounts.",
-      "type": "object",
-      "properties": {
-        "softDeleteAction": {
-          "description": "Enum to indicate the action to perform on the soft-deleted database account.",
-          "type": "string",
-          "$ref": "#/definitions/SoftDeleteAction"
-        }
-      },
-      "required": [
-        "softDeleteAction"
-      ]
-    },
-    "SoftDeleteAction": {
-      "description": "Enum to indicate the action to perform on the soft-deleted database account.",
-      "type": "string",
-      "enum": [
-        "Restore",
-        "Purge"
-      ],
-      "x-ms-enum": {
-        "name": "SoftDeleteAction",
-        "modelAsString": true
-      }
-    },
+
     "SoftDeletedDatabaseAccountListResult": {
       "description": "The list of soft-deleted database accounts.",
       "type": "object",
@@ -683,33 +747,7 @@
         }
       }
     },
-    "SoftDeletedSqlDatabaseUpdateParameters": {
-      "description": "Parameters to update soft-deleted Azure Cosmos DB SQL databases.",
-      "type": "object",
-      "properties": {
-        "properties": {
-          "x-ms-client-flatten": true,
-          "$ref": "#/definitions/SoftDeletedSqlDatabaseUpdateProperties"
-        }
-      },
-      "required": [
-        "properties"
-      ]
-    },
-    "SoftDeletedSqlDatabaseUpdateProperties": {
-      "description": "Properties to update soft-deleted Azure Cosmos DB SQL databases.",
-      "type": "object",
-      "properties": {
-        "softDeleteAction": {
-          "description": "Enum to indicate the action to perform on the soft-deleted SQL database.",
-          "type": "string",
-          "$ref": "#/definitions/SoftDeleteAction"
-        }
-      },
-      "required": [
-        "softDeleteAction"
-      ]
-    },
+
     "SoftDeletedSqlDatabaseListResult": {
       "description": "The list of soft-deleted SQL databases.",
       "type": "object",
@@ -774,33 +812,7 @@
         }
       }
     },
-    "SoftDeletedSqlContainerUpdateParameters": {
-      "description": "Parameters to update soft-deleted Azure Cosmos DB SQL containers.",
-      "type": "object",
-      "properties": {
-        "properties": {
-          "x-ms-client-flatten": true,
-          "$ref": "#/definitions/SoftDeletedSqlContainerUpdateProperties"
-        }
-      },
-      "required": [
-        "properties"
-      ]
-    },
-    "SoftDeletedSqlContainerUpdateProperties": {
-      "description": "Properties to update soft-deleted Azure Cosmos DB SQL containers.",
-      "type": "object",
-      "properties": {
-        "softDeleteAction": {
-          "description": "Enum to indicate the action to perform on the soft-deleted SQL container.",
-          "type": "string",
-          "$ref": "#/definitions/SoftDeleteAction"
-        }
-      },
-      "required": [
-        "softDeleteAction"
-      ]
-    },
+
     "SoftDeletedSqlContainerListResult": {
       "description": "The list of soft-deleted SQL containers.",
       "type": "object",

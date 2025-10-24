@@ -5,12 +5,7 @@
     "resourceGroupName": "rg1",
     "location": "West US",
     "accountName": "softdeleted-cosmosdb-1",
-    "databaseName": "MyDatabase",
-    "updateSoftDeletedSqlDatabaseParameters": {
-      "properties": {
-        "softDeleteAction": "Purge"
-      }
-    }
+    "databaseName": "MyDatabase"
   },
   "responses": {
     "200": {
