@@ -1722,6 +1722,7 @@
           "x-nullable": false
         },
         "k": {
+          "x-ms-client-name": "KNearestNeighbors",
           "type": "integer",
           "format": "int32",
           "description": "Number of nearest neighbors to return as top hits."
